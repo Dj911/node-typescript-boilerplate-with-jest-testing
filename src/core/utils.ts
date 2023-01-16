@@ -23,7 +23,7 @@ export const deletePropertyFromObject = (obj: object, fieldsToBeDeleted: string[
 
 export const createJWTToken = (payload: object): string => {
 	const token = jsonwebtoken.sign(payload, config.JWT_SECRET, {
-		expiresIn: 180
+		expiresIn: Number(config.JWT_EXPIRES_IN)
 	})
 
 	return token
