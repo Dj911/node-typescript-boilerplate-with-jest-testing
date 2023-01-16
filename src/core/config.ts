@@ -1,0 +1,27 @@
+export interface Config {
+	PORT: string
+	ENVIRONMENT: string
+	DB: {
+		url: string
+		options: {
+			useNewUrlParser: boolean
+			useUnifiedTopology: boolean
+		}
+	}
+	PASSWORD_SALT: string
+	JWT_SECRET: string
+}
+
+export const config: Config = {
+	PORT: (process.env.PORT as string) || '3000',
+	ENVIRONMENT: (process.env.ENVIRONMENT as string) || 'development',
+	DB: {
+		url: (process.env.DBURL as string) || '',
+		options: {
+			useNewUrlParser: true,
+			useUnifiedTopology: true
+		}
+	},
+	PASSWORD_SALT: (process.env.PASSWORD_SALT as string) || '',
+	JWT_SECRET: (process.env.JWT_SECRET as string) || ''
+}
