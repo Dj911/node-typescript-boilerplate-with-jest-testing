@@ -25,5 +25,5 @@ export const config: Config = {
 	},
 	PASSWORD_SALT: (process.env.PASSWORD_SALT as string) || '',
 	JWT_SECRET: (process.env.JWT_SECRET as string) || '',
-	JWT_EXPIRES_IN: (process.env.JWT_SECRET as string) || ''
+	JWT_EXPIRES_IN: (process.env.JWT_EXPIRES_IN as string) || ''
 }
