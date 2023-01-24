@@ -5,3 +5,5 @@ notes.txt
 .vscode
 .history
 build
+coverage
+jest.config.js

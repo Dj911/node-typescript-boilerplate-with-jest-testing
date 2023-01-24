@@ -6,8 +6,10 @@ import { responseMessages } from '@core/messages'
 import { registerValidation } from '@validations/joi'
 import { passwordEncryption, comparePassword, deletePropertyFromObject, createJWTToken } from '@core/utils'
 import { User } from '@modules/user/model'
+import logger from '@root/core/logger'
 
 export const register = catchAsync(async (req: Request, res: Response) => {
+	logger.info('Inside User Register Controller')
 	const validateBody = registerValidation(req.body)
 	if (!validateBody?.status) {
 		return handleError(res, 400, validateBody?.error ? validateBody?.error : responseMessages.JOI_VALIDATION_FAIL, 0, {})
@@ -37,6 +39,7 @@ export const register = catchAsync(async (req: Request, res: Response) => {
 	if (checkMobileNumberExist) {
 		return handleError(res, 500, responseMessages.MOBILENUMBER_ALREADY_EXIST, 0, {})
 	}
+	logger.info('HERE!!')
 	obj.password = passwordEncryption(password)
 	const response = await registerService(obj)
 	if (response) {

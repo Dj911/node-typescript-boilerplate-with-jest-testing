@@ -13,7 +13,7 @@ import { database } from '@core/dbConnection'
 import logger from '@core/logger'
 
 class App {
-	private app: Application
+	public app: Application
 	constructor() {
 		this.app = express()
 		this.middlewares()
@@ -38,7 +38,7 @@ class App {
 			})
 		)
 	}
-	private routes() {
+	public routes() {
 		this.app.use('/api/v1', indexRouter)
 	}
 	private databaseConnection() {

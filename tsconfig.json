@@ -26,7 +26,7 @@
       ],
       "@middlewares/*": [
         "middlewares/*"
-      ]
+      ],
     },                                      /* Specify a set of entries that re-map imports to additional lookup locations. */
     "typeRoots": [
       "src/@types",
@@ -56,5 +56,6 @@
     "skipLibCheck": true                                 /* Skip type checking all .d.ts files. */
   },
   "include": ["src/**/*.ts", "src/**/*.js"],
-  "exclude": ["node_modules", "build"]
+  "exclude": ["node_modules", "build", "__tests__","**/*.spec.ts",
+  "**/*.test.ts"]
 }
