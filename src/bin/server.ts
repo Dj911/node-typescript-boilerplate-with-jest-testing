@@ -1,5 +1,4 @@
 import 'module-alias/register'
-import http from 'http'
 import application from '@root/app'
 import { config } from '@core/config'
 import logger from '@core/logger'
@@ -12,11 +11,10 @@ if (config.ENVIRONMENT === 'production') {
 	})
 }
 
-const { server, port } = application.createServer(http)
+const { app, port } = application.createServer()
 
-server.listen(port)
-server.on('error', onError)
-server.on('listening', onListening)
+const server = app.listen(port,onListening)
+app.on('error', onError)
 
 function onError(error: any) {
 	if (error.syscall !== 'listen') {
@@ -38,10 +36,7 @@ function onError(error: any) {
 }
 
 function onListening() {
-	const addr = server.address()
-	const bind = typeof addr === 'string' ? `Pipe ${addr}` : `Port ${addr.port}`
 	logger.info(`Server started on port : ${port}`)
-	logger.info(`Listening on ${bind}`)
 }
 
 process.on('unhandledRejection', (err: Error) => {

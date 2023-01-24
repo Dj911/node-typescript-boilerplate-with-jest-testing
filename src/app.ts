@@ -86,11 +86,10 @@ class App {
 			res.status(err.status).send(err.message)
 		})
 	}
-	createServer(http: any) {
+	createServer() {
 		this.app.set('port', config.PORT ? config.PORT : '3000')
-		const server = http.createServer(this.app)
 		return {
-			server,
+			app: this.app,
 			port: this.app.get('port')
 		}
 	}
