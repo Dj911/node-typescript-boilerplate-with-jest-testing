@@ -11,6 +11,7 @@ import { config } from '@core/config'
 import indexRouter from '@modules/index'
 import { database } from '@core/dbConnection'
 import logger from '@core/logger'
+import status from 'express-status-monitor'
 
 class App {
 	public app: Application
@@ -27,6 +28,7 @@ class App {
 		this.app.use(express.json())
 		this.app.use(express.urlencoded({ extended: false }))
 		this.app.use(cookieParser())
+		this.app.use(status())
 		if (config.ENVIRONMENT === 'development') {
 			this.app.use(morgan('dev'))
 		}
