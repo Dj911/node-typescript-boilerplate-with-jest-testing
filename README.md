@@ -18,17 +18,20 @@ Now open your PM2.io site here you can check your server metrics.
 
 # Implementing Express Server Status
 
-I have also implemented an simple express server status which shows the basic server metrics. For that we have used 
+I have also implemented an simple express server status which shows the basic server metrics. For that we have used
+
 ```console
 express-status-monitor
 ```
 
 First we need the to install the package as dev dependency
+
 ```console
 npm i -D express-status-monitor
 ```
 
 Now we first nee to add it inside our app.ts file as a middleware.
+
 ```javascript
 import status from 'express-status-monitor'
 ..
