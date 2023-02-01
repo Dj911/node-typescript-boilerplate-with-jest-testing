@@ -2,6 +2,7 @@ import 'module-alias/register'
 import application from '@root/app'
 import { config } from '@core/config'
 import logger from '@core/logger'
+import toobusy_js from 'toobusy-js'
 
 if (config.ENVIRONMENT === 'production') {
 	process.on('uncaughtException', (err: Error) => {
@@ -13,7 +14,7 @@ if (config.ENVIRONMENT === 'production') {
 
 const { app, port } = application.createServer()
 
-const server = app.listen(port,onListening)
+const server = app.listen(port, onListening)
 app.on('error', onError)
 
 function onError(error: any) {
@@ -52,4 +53,11 @@ process.on('SIGTERM', () => {
 	server.close(() => {
 		logger.info('💥 Process terminated!')
 	})
+})
+
+process.on('SIGINT', () => {
+	server.close()
+	// calling .shutdown allows your process to exit normally
+	toobusy_js.shutdown()
+	process.exit()
 })

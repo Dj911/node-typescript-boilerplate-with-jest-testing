@@ -11,6 +11,7 @@ import { config } from '@core/config'
 import indexRouter from '@modules/index'
 import { database } from '@core/dbConnection'
 import logger from '@core/logger'
+import toobusy_js from 'toobusy-js'
 // import status from 'express-status-monitor'
 
 class App {
@@ -28,6 +29,17 @@ class App {
 		this.app.use(express.json())
 		this.app.use(express.urlencoded({ extended: false }))
 		this.app.use(cookieParser())
+		// Will send 503 error if the server has too many request instead of crashing
+		this.app.use(function (_req, res, next) {
+			if (toobusy_js()) {
+				res.status(503).json({
+					message: "I'm busy right now, sorry."
+				})
+			} else {
+				next()
+			}
+		})
+		// Server Metrics
 		// this.app.use(status())
 		if (config.ENVIRONMENT === 'development') {
 			this.app.use(morgan('dev'))
@@ -70,6 +82,7 @@ class App {
 			db.close(() => {
 				logger.debug('Mongoose connection disconnected for master DB through app termination')
 				// eslint-disable-next-line no-process-exit
+
 				process.exit(0)
 			})
 		})
